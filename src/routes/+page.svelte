@@ -1,7 +1,7 @@
 <script>
     import "../global.css";
     import { fade } from "svelte/transition";
-    import { posts } from "$lib/posts";
+    import { articles } from "$lib/articles";
     import { currentScreen, dialogBoxVisible } from "../stores";
     import HomeScreen from "$lib/HomeScreen.svelte";
     import MenuScreen from "$lib/MenuScreen.svelte";
@@ -9,6 +9,7 @@
     import SlowReadScreen from "$lib/SlowReadScreen.svelte";
     import ReadingFactsScreen from "$lib/ReadingFactsScreen.svelte";
     import DialogBox from "$lib/DialogBox.svelte";
+    import LoadingScreen from "$lib/LoadingScreen.svelte";
 </script>
 
 <head>
@@ -39,6 +40,11 @@
     {#if $currentScreen === "reading-facts"}
         <div transition:fade={{ duration: 300 }}>
             <ReadingFactsScreen />
+        </div>
+    {/if}
+    {#if $currentScreen === "loading"}
+        <div transition:fade={{ duration: 300 }}>
+            <LoadingScreen />
         </div>
     {/if}
 </main>

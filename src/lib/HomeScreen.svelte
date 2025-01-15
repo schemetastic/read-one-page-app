@@ -1,3 +1,19 @@
+<script>
+    import { articles } from "./articles/index.js";
+    import {
+        selectedReadingField,
+        selectedReadingTopic,
+        currentScreen,
+    } from "../stores.js";
+
+    function handleLinkClick(field, topic) {
+        event.preventDefault();
+        selectedReadingField.set(field);
+        selectedReadingTopic.set(topic);
+        currentScreen.set("loading");
+    }
+</script>
+
 <div class="logoContainer">
     <img src="/img/logo.webp" alt="logo of ReadOnePage" />
 </div>
@@ -17,9 +33,30 @@
 
 <h1>1. Select an article that you find interesting</h1>
 <p class="descriptionAfter">
-    After each reading, with the help of AI you'll be prompted 3 questions of
-    the reading.
+    After each reading, <strong>
+        with the help of AI you'll be asked 3 questions of the reading.
+    </strong>
 </p>
+
+<section class="articlesContainer">
+    {#each Object.keys(articles) as field}
+        <div class="articleField">
+            <h2>{field}:</h2>
+            <ul>
+                {#each Object.keys(articles[field]) as article}
+                    <li>
+                        <a
+                            on:click={() => {
+                                handleLinkClick(field, article);
+                            }}
+                            href="#!">{article}</a
+                        >
+                    </li>
+                {/each}
+            </ul>
+        </div>
+    {/each}
+</section>
 
 <style>
     .logoContainer {
@@ -44,9 +81,49 @@
     h1 {
         padding: 2rem;
         text-align: center;
+        font-size: 2.25rem;
+    }
+    h2 {
+        padding: 1rem 0;
+        text-align: left;
+        font-size: 1.85rem;
     }
     .descriptionAfter {
+        font-size: 1.15rem;
         padding: 0 0 2rem 0;
         text-align: center;
+    }
+    .articlesContainer {
+        padding: 1rem 0;
+    }
+    ul {
+        display: block;
+        border-radius: 5px;
+        border: 2px solid white;
+        list-style: none;
+        width: 95%;
+        padding: 0;
+        margin-left: 2rem;
+    }
+    li {
+        display: block;
+    }
+    li:not(:last-child) {
+        border-bottom: 2px solid white;
+    }
+    li a {
+        display: block;
+        padding: 1rem 1rem;
+        color: white;
+        text-decoration: none;
+        text-decoration: none;
+        width: 100%;
+        font-size: 1.25rem;
+        transition: all ease-in-out 0.15s;
+    }
+    li a:hover {
+        background-color: white;
+        text-decoration: underline;
+        color: #151515;
     }
 </style>
