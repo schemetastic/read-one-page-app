@@ -121,6 +121,9 @@
         font-size: 1.25rem;
         transition: all ease-in-out 0.15s;
     }
+    .articleField {
+        padding: 1.5rem 0;
+    }
     li a:hover {
         background-color: white;
         text-decoration: underline;

@@ -1,19 +1,38 @@
 import { json } from "@sveltejs/kit";
 import { articles } from "$lib/articles/index.js";
+import OpenAI from "openai";
+
+
 
 export async function GET({ url }) {
     const field = url.searchParams.get("field");
     const topic = url.searchParams.get("topic");
     let hasError = false;
+    const token = process.env["GITHUB_TOKEN"];
+    const endpoint = "https://models.inference.ai.azure.com";
+    const modelName = "gpt-4o-mini";
 
     const promptArticle = articles[field][topic].text;
+    const prompt = `From the article next ahead I want you to give me 3 questions, and each question most have 4 possible options being only 1 the correct answer, please don't make the right answer way too obvious, return the questions and answers in this format: {% QUESTION: the-question $ANSWERS: [ RIGHT: answer-1 $; $WRONG: answer-2 $; $WRONG: answer-3 $; $WRONG: answer-4] /}. The answer 1 will always be the correct;
 
-    const content = `{% $QUESTION: What is one key principle mentioned for creating intuitive UI/UX? $ANSWERS: [$RIGHT: Consistency $; $WRONG: Animation $; $WRONG: Color Variety $; $WRONG: Complexity] /}
+This is the article: ${promptArticle}`;
 
-{% $QUESTION: How should effective UI/UX design start according to the article? $ANSWERS: [$RIGHT: By understanding the user's needs and behaviors $; $WRONG: By choosing vibrant color schemes $; $WRONG: By adopting the latest design trends $; $WRONG: By following competitor designs] /}
+    const client = new OpenAI({ baseURL: endpoint, apiKey: token });
 
-{% $QUESTION: What should designers prioritize to enhance user satisfaction in UI/UX design? $ANSWERS: [$RIGHT: Function and user satisfaction $; $WRONG: Aesthetics over functionality $; $WRONG: Complicated interfaces $; $WRONG: Heavy use of animations] /}`
+    const response = await client.chat.completions.create({
+        messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: prompt }
+        ],
+        temperature: 1.0,
+        top_p: 1.0,
+        max_tokens: 1000,
+        model: modelName
+    });
 
+    console.log(response);
+
+    const content = response.choices[0].message.content;
     const questions = splitQuestions(content);
 
     if (questions.length !== 3) {

@@ -10,6 +10,7 @@
     import ReadingFactsScreen from "$lib/ReadingFactsScreen.svelte";
     import DialogBox from "$lib/DialogBox.svelte";
     import LoadingScreen from "$lib/LoadingScreen.svelte";
+    import QuestionsAndAnswersScreen from "$lib/QuestionsAndAnswersScreen.svelte";
 </script>
 
 <head>
@@ -40,6 +41,11 @@
     {#if $currentScreen === "reading-facts"}
         <div transition:fade={{ duration: 300 }}>
             <ReadingFactsScreen />
+        </div>
+    {/if}
+    {#if $currentScreen === "q&a"}
+        <div transition:fade={{ duration: 300 }}>
+            <QuestionsAndAnswersScreen />
         </div>
     {/if}
     {#if $currentScreen === "loading"}

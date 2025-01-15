@@ -1,4 +1,5 @@
 <script>
+    import { currentScreen } from "../stores.js";
 </script>
 
 <section autofocus>
@@ -11,11 +12,15 @@
                 alt="Tough-Love Badge showing an arms with muscles flexing"
             />
             <p>
-                The screen will automatically scroll and you only have 1.5
-                minutes to read the whole article. On finish, with the help of
+                The screen will automatically scroll and you only have ~90
+                seconds to read the whole article. On finish, with the help of
                 AI you'll be asked 3 questions.
             </p>
-            <button>Start session</button>
+            <button
+                on:click={() => {
+                    currentScreen.set("fast-read");
+                }}>Start session</button
+            >
         </div>
         <div class="optionBox">
             <h2>Self-Paced</h2>
@@ -28,7 +33,11 @@
                 you spend reading, and then, with the help of AI you'll be asked
                 3 questions.
             </p>
-            <button>Start session</button>
+            <button
+                on:click={() => {
+                    currentScreen.set("slow-read");
+                }}>Start session</button
+            >
         </div>
     </div>
 </section>
