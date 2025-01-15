@@ -1,6 +1,8 @@
-# sv
+# OnePageRead
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## A web app in Svelte that can help you to improve your focus with interactive reading
+
+Svelte installing instructions:
 
 ## Creating a project
 
