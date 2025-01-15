@@ -1,0 +1,47 @@
+:root {
+    --bg-color: #151515;
+    --text-color: #ffffff;
+
+    --ui-font: "Poppins", serif;
+    --read-font: "PT Mono", serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: var(--ui-font);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color)
+}
+
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    padding: 1rem;
+    position: relative;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.mainContainer>* {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+}
