@@ -1,6 +1,7 @@
 import { json } from "@sveltejs/kit";
 import { articles } from "$lib/articles/index.js";
 import OpenAI from "openai";
+import { env } from '$env/dynamic/private';
 
 
 
@@ -8,7 +9,7 @@ export async function GET({ url }) {
     const field = url.searchParams.get("field");
     const topic = url.searchParams.get("topic");
     let hasError = false;
-    const token = process.env["GITHUB_TOKEN"];
+    const token = env.GITHUB_TOKEN;
     const endpoint = "https://models.inference.ai.azure.com";
     const modelName = "gpt-4o-mini";
 
