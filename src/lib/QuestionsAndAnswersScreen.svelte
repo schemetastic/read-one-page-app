@@ -45,7 +45,11 @@
 <div autofocus>
     {#each $questionsWithAnswers.data as item, questionIndex}
         <div class="questionContainer">
-            <h2>{item.question}</h2>
+            <h2>
+                {item.question
+                    .replaceAll("{% QUESTION:", "")
+                    .replaceAll("{%", "")}
+            </h2>
             {#each item.answers as answer, answerIndex}
                 <button
                     class="optionBtn"
@@ -64,6 +68,8 @@
                     >{answer.text
                         .replace(/^ \[/g, "")
                         .replace(/]/g, "")
+                        .replaceAll("RIGHT:", "")
+                        .replaceAll("Right", "")
                         .replaceAll("$RIGHT: ", "")
                         .replaceAll("$WRONG: ", "")
                         .replaceAll("/}", "")}</button
